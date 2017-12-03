@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class TransferRequest implements Serializable {
-    private UUID uuid;
-    private String filename;
-    private boolean isUpload;
+    private final UUID uuid;
+    private final String filename;
+    private final boolean isUpload;
 
     public TransferRequest(UUID uuid, String filename, boolean isUpload) {
         this.uuid = uuid;

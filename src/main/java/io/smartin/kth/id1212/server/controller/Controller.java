@@ -16,7 +16,7 @@ import io.smartin.kth.id1212.shared.interfaces.FileCatalog;
 import io.smartin.kth.id1212.shared.interfaces.FileClient;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
@@ -97,11 +97,11 @@ public class Controller extends UnicastRemoteObject implements FileCatalog {
     }
 
     @Override
-    public boolean uploadFile (UUID userID, Metadata metadata) throws RemoteException, UnauthorizedWriteException {
+    public void uploadFile (UUID userID, Metadata metadata) throws RemoteException, UnauthorizedWriteException {
         User user = null;
         try {
             user = userManager.getUser(userID);
-            return fileManager.prepareUpload(user, metadata);
+            fileManager.prepareUpload(user, metadata);
         } catch (SQLIntegrityConstraintViolationException e) {
             if (user != null) {
                 user.sendResponse("You are not allowed to upload to this filename");
@@ -111,7 +111,6 @@ public class Controller extends UnicastRemoteObject implements FileCatalog {
         } catch (UserNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override
@@ -127,25 +126,23 @@ public class Controller extends UnicastRemoteObject implements FileCatalog {
     }
 
     @Override
-    public boolean setPermissions (UUID userID, String fileName, String permissions) throws FileNotFoundException, UnauthorizedWriteException {
+    public void setPermissions (UUID userID, String fileName, String permissions) throws FileNotFoundException, UnauthorizedWriteException {
         try {
             User user = userManager.getUser(userID);
-            return fileManager.updatePermissions(fileName, user, permissions);
+            fileManager.updatePermissions(fileName, user, permissions);
         } catch (UserNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override
-    public boolean subscribe(UUID userID, String fileName, boolean active) throws RemoteException, FileNotFoundException, UnauthorizedReadException {
+    public void subscribe(UUID userID, String fileName, boolean active) throws RemoteException, FileNotFoundException, UnauthorizedReadException {
         try {
             User user = userManager.getUser(userID);
-            return fileManager.updateSubscription(fileName, user, active);
+            fileManager.updateSubscription(fileName, user, active);
         } catch (UserNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     @Override

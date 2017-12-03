@@ -34,7 +34,7 @@ public class FileManager {
             this.controller = controller;
             db.connect("localhost");
             new TransferListener().start(this);
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -113,7 +113,7 @@ public class FileManager {
         throw new UnauthorizedWriteException("The user is not authorized to write to that filename");
     }
 
-    public void removeUpload(FileTransferer upload) {
+    private void removeUpload(FileTransferer upload) {
         synchronized (fileTransferList) {
             fileTransferList.remove(upload);
         }
@@ -196,7 +196,7 @@ public class FileManager {
         FileManager fm;
         static final int port = 1337;
 
-        public void start(FileManager fm) throws IOException {
+        void start(FileManager fm) {
             this.fm = fm;
             new Thread(this).start();
         }
@@ -222,7 +222,7 @@ public class FileManager {
         }
 
 
-        void startTransfer (SocketChannel clientSocket) throws SocketException {
+        void startTransfer (SocketChannel clientSocket) {
             FileTransferer fileTransferer = new FileTransferer(clientSocket, fm);
             new Thread(fileTransferer).start();
             synchronized (fileTransferList) {
@@ -254,7 +254,7 @@ public class FileManager {
             return owner.getUsername().equals(editor.getUsername());
         }
 
-        public void notifyChanged(File file, User editor) {
+        void notifyChanged(File file, User editor) {
             try {
                 User owner = file.getPermissions().getOwner();
                 if (ownerIsResponsible(owner, editor)) {

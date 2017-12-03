@@ -76,17 +76,18 @@ public class DatabaseHandler {
         String query;
         switch (table) {
             case USERS:
-                query = "DELETE FROM users WHERE username=?";
-                PreparedStatement stmt = connection.prepareStatement(query);
-                stmt.setString(1, identifier);
-                stmt.execute();
-                stmt.close();
+                query = "DELETE FROM " + USER_TABLE + " WHERE username=?";
                 break;
             case FILES:
+                query = "DELETE FROM " + FILE_TABLE + " WHERE filename=?";
                 break;
             default:
                 throw new NoSuchTableException("Table interaction not defined");
         }
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setString(1, identifier);
+        stmt.execute();
+        stmt.close();
     }
 
     public User selectUser(String name) throws UserNotFoundException, SQLException {
@@ -150,7 +151,7 @@ public class DatabaseHandler {
         return file;
     }
 
-    public File updateFile(File file) throws SQLException, FileNotFoundException {
+    public void updateFile(File file) throws SQLException, FileNotFoundException {
         String query = "UPDATE " + FILE_TABLE
                 + " SET `size`=?, owner=?, notifications_enabled=?, is_public=?, is_readable=?, " +
                 "is_writable=?, is_uploaded=? WHERE filename=?";
@@ -165,7 +166,7 @@ public class DatabaseHandler {
         stmt.setString(8,file.getName());
         stmt.execute();
         stmt.close();
-        return getFileByName(file.getName());
+        getFileByName(file.getName());
     }
 
     public File getFileByName (String filename) throws SQLException, FileNotFoundException {
@@ -194,13 +195,5 @@ public class DatabaseHandler {
     }
 
     public enum FileProperty {
-        FILENAME,
-        SIZE,
-        OWNER,
-        NOTIFICATIONS_ENABLED,
-        IS_PUBLIC,
-        IS_READABLE,
-        IS_WRITABLE,
-        IS_UPLOADED
     }
 }

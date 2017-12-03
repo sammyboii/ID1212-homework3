@@ -73,6 +73,11 @@ public class Command {
                     throw new ErroneousInputException("usage: unsubscribe filename");
                 }
                 result = new Command(CommandType.UNSUBSCRIBE, args); break;
+            case "DELETE":
+                if (args.length != 1) {
+                    throw new ErroneousInputException("usage: delete filename");
+                }
+                result = new Command(CommandType.DELETE, args); break;
             default: throw new UnknownCommandException("Unknown command '" + parts[0] + "'");
         }
         return result;
@@ -104,6 +109,7 @@ public class Command {
         PERMISSIONS,
         SUBSCRIBE,
         UNSUBSCRIBE,
+        DELETE,
         QUIT
     }
 }

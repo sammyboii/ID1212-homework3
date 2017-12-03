@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.channels.SocketChannel;
 import java.nio.file.Path;
 
-public class FileDownload implements Runnable {
+class FileDownload implements Runnable {
     private final FileManager fileManager;
     private final TransferRequest socketID;
     private final SocketChannel channel;

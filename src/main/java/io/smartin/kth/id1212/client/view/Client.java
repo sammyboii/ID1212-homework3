@@ -177,6 +177,15 @@ public class Client implements Runnable {
                     String fileToStopNotifyingAbout = command.getArg(0);
                     handleSubscription(fileToStopNotifyingAbout, false);
                     break;
+                case DELETE:
+                    String fileToDelete = command.getArg(0);
+                    try {
+                        catalog.deleteFile(userID, fileToDelete);
+                        out("File '"+ fileToDelete +"' deleted");
+                    } catch (FileNotFoundException | UnauthorizedWriteException e) {
+                        out(e.getMessage());
+                    }
+                    break;
             }
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -192,7 +201,7 @@ public class Client implements Runnable {
         }
     }
 
-    private void handleSubscription(String fileToNotifyAbout, boolean active) throws NoArgumentException, RemoteException {
+    private void handleSubscription(String fileToNotifyAbout, boolean active) throws RemoteException {
         try {
             String change = active ? "activated" : "removed";
             catalog.subscribe(userID, fileToNotifyAbout, active);
@@ -216,11 +225,10 @@ public class Client implements Runnable {
     }
 
     private String formatPermissions (boolean p, boolean r, boolean w) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(p ? "p" : "-");
-        sb.append(r ? "r" : "-");
-        sb.append(w ? "w" : "-");
-        return sb.toString();
+        String sb = (p ? "p" : "-") +
+                (r ? "r" : "-") +
+                (w ? "w" : "-");
+        return sb;
     }
 
     private boolean isLoggedIn() {
@@ -238,13 +246,9 @@ public class Client implements Runnable {
     private class ResponseHandler extends UnicastRemoteObject implements FileClient {
         ResponseHandler() throws RemoteException {
         }
+
         public void forceLogOut() throws RemoteException {
             userID = null;
-        }
-
-        @Override
-        public void startUpload(Metadata data) throws RemoteException, FileNotFoundException {
-
         }
 
         public void receiveResponse(String response) {
@@ -262,7 +266,7 @@ public class Client implements Runnable {
         final boolean isUpload;
         final String downloadsFolder = "/Users/smartin/Desktop/socketDL/";
 
-        public FileTransfer(Metadata metadata, boolean isUpload) {
+        FileTransfer(Metadata metadata, boolean isUpload) {
             this.metadata = metadata;
             this.isUpload = isUpload;
         }

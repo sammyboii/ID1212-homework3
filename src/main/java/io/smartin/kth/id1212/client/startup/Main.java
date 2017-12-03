@@ -12,11 +12,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             new Client(host).start();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (NotBoundException e) {
+        } catch (RemoteException | NotBoundException | MalformedURLException e) {
             e.printStackTrace();
         }
     }

@@ -1,7 +1,6 @@
 package io.smartin.kth.id1212.server.model.File;
 
 import io.smartin.kth.id1212.server.model.User.User;
-import io.smartin.kth.id1212.shared.interfaces.CatalogFile;
 import io.smartin.kth.id1212.shared.DTOs.Metadata;
 
 /*
@@ -9,7 +8,7 @@ import io.smartin.kth.id1212.shared.DTOs.Metadata;
 size; owner; public/private access permissions that indicates whether it’s a public
 or private file; write and read permissions if the file is public. I
 * */
-public class File implements CatalogFile {
+public class File {
     private final String name;
     private final long size;
     private boolean notifyOwner = false;
@@ -48,22 +47,18 @@ public class File implements CatalogFile {
         return size;
     }
 
-    @Override
     public boolean isPublic() {
         return permissions.isPublic();
     }
 
-    @Override
     public boolean isWritable() {
         return permissions.isWritable();
     }
 
-    @Override
     public boolean isReadable() {
         return permissions.isReadable();
     }
 
-    @Override
     public String getPath() {
         return "";
     }

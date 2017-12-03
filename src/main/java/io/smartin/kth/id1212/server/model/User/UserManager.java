@@ -87,7 +87,7 @@ public class UserManager {
     }
 
     public User authenticateUser(Credentials credentials) throws ErroneousInputException, UserNotFoundException, SQLException  {
-        User user = (User) db.selectUser(credentials.getUsername());
+        User user = db.selectUser(credentials.getUsername());
         if (!passwordsMatch(user, credentials)) {
             throw new ErroneousInputException("Wrong username or password");
         }
