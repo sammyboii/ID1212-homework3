@@ -2,8 +2,8 @@ package io.smartin.kth.id1212.server.controller;
 
 import io.smartin.kth.id1212.client.exceptions.ErroneousInputException;
 import io.smartin.kth.id1212.server.exceptions.NoSuchTableException;
-import io.smartin.kth.id1212.server.exceptions.UnauthorizedWriteException;
-import io.smartin.kth.id1212.server.exceptions.UserAlreadyExistsException;
+import io.smartin.kth.id1212.shared.exceptions.UnauthorizedWriteException;
+import io.smartin.kth.id1212.shared.exceptions.UserAlreadyExistsException;
 import io.smartin.kth.id1212.shared.DTOs.Credentials;
 import io.smartin.kth.id1212.shared.DTOs.Metadata;
 import io.smartin.kth.id1212.shared.DTOs.TransferRequest;

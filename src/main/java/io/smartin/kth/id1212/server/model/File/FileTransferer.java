@@ -1,6 +1,6 @@
 package io.smartin.kth.id1212.server.model.File;
 
-import io.smartin.kth.id1212.server.exceptions.UnauthorizedWriteException;
+import io.smartin.kth.id1212.shared.exceptions.UnauthorizedWriteException;
 import io.smartin.kth.id1212.shared.DTOs.TransferRequest;
 import io.smartin.kth.id1212.shared.tools.TransferHandler;
 import io.smartin.kth.id1212.shared.exceptions.UserNotFoundException;

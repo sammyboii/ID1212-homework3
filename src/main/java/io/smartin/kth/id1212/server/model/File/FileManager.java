@@ -2,7 +2,7 @@ package io.smartin.kth.id1212.server.model.File;
 
 import io.smartin.kth.id1212.server.controller.Controller;
 import io.smartin.kth.id1212.server.exceptions.NoSuchTableException;
-import io.smartin.kth.id1212.server.exceptions.UnauthorizedWriteException;
+import io.smartin.kth.id1212.shared.exceptions.UnauthorizedWriteException;
 import io.smartin.kth.id1212.shared.DTOs.TransferRequest;
 import io.smartin.kth.id1212.shared.exceptions.UnauthorizedReadException;
 import io.smartin.kth.id1212.shared.exceptions.UserNotFoundException;
@@ -13,7 +13,6 @@ import io.smartin.kth.id1212.shared.DTOs.Metadata;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.SocketException;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.file.Files;

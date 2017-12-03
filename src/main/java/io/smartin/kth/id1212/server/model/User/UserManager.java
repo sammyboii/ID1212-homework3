@@ -2,7 +2,7 @@ package io.smartin.kth.id1212.server.model.User;
 
 import io.smartin.kth.id1212.client.exceptions.ErroneousInputException;
 import io.smartin.kth.id1212.server.exceptions.NoSuchTableException;
-import io.smartin.kth.id1212.server.exceptions.UserAlreadyExistsException;
+import io.smartin.kth.id1212.shared.exceptions.UserAlreadyExistsException;
 import io.smartin.kth.id1212.shared.exceptions.UserNotFoundException;
 import io.smartin.kth.id1212.server.integration.DatabaseHandler;
 import io.smartin.kth.id1212.shared.DTOs.Credentials;
